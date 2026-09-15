@@ -112,7 +112,7 @@ public class DriveConstants {
                                     / (kDriveGearRatio * kSpeedAt12Volts.in(MetersPerSecond)))
                     .withKS(0.1);
 
-    private static final int kPigeonId = 14;
+    private static final int kPigeonId = 13;
 
     // These are only used for simulation
     private static final MomentOfInertia kSteerInertia = KilogramSquareMeters.of(0.004);
