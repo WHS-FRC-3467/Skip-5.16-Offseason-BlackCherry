@@ -23,7 +23,6 @@ import com.ctre.phoenix6.configs.SlotConfigs;
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -35,7 +34,6 @@ import edu.wpi.first.units.measure.LinearAcceleration;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -523,29 +521,6 @@ public class Drive extends SubsystemBase {
      */
     public LinearAcceleration getAccelerationY() {
         return gyroInputs.yAcceleration;
-    }
-
-    /**
-     * Returns whether the drivetrain is operating at a significant angle.
-     *
-     * <p>This checks the current pitch and roll reported by the gyro against the configured maximum
-     * allowed angle ({@link DriveConstants#ANGLED_TOLERANCE}). It is used to detect when the robot
-     * is on an incline or traversing a bump so that vision-based pose updates can be temporarily
-     * ignored while the drivetrain is not level.
-     *
-     * @return {@code true} if the absolute pitch or roll exceeds the allowed threshold, indicating
-     *     the drivetrain is sufficiently angled; {@code false} otherwise.
-     */
-    public boolean isAngled() {
-        if (RobotBase.isSimulation()) {
-            return false;
-        }
-
-        double pitch = MathUtil.inputModulus(gyroInputs.pitchPosition.getDegrees(), -180.0, 180.0);
-        double roll = MathUtil.inputModulus(gyroInputs.rollPosition.getDegrees(), -180.0, 180.0);
-        double tolerance = DriveConstants.ANGLED_TOLERANCE.in(Degrees);
-
-        return Math.abs(pitch) > tolerance || Math.abs(roll) > tolerance;
     }
 
     public Rotation2d getRawGyroAngle() {
